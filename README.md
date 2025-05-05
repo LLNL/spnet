@@ -1,5 +1,7 @@
 # Swap Path Network for Robust Person Search Pre-training
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gallery-filter-network-for-person-search/person-search-on-cuhk-sysu)](https://paperswithcode.com/sota/person-search-on-cuhk-sysu?p=gallery-filter-network-for-person-search) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/gallery-filter-network-for-person-search/person-search-on-prw)](https://paperswithcode.com/sota/person-search-on-prw?p=gallery-filter-network-for-person-search)
+
 Repository for paper, "Swap Path Network for Robust Person Search Pre-training". [arXiv](https://arxiv.org/abs/2412.05433) [IEEE](https://ieeexplore.ieee.org/document/10943876)
 Implements pre-training and fine-tuning of the Swap Path Net (SPNet) for person search.
 Contains code, configs, and instructions to reproduce all results from the paper.
