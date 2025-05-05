@@ -1,6 +1,6 @@
 # Swap Path Network for Robust Person Search Pre-training
 
-Repository for paper, "Swap Path Network for Robust Person Search Pre-training". [arXiv](ihttps://arxiv.org/abs/2412.05433) [IEEE](https://ieeexplore.ieee.org/document/10943876)
+Repository for paper, "Swap Path Network for Robust Person Search Pre-training". [arXiv](https://arxiv.org/abs/2412.05433) [IEEE](https://ieeexplore.ieee.org/document/10943876)
 Implements pre-training and fine-tuning of the Swap Path Net (SPNet) for person search.
 Contains code, configs, and instructions to reproduce all results from the paper.
 
@@ -201,6 +201,7 @@ We would like to acknowledge the authors of the following repos for code which w
 
 ## Citation
 
+```
 @INPROCEEDINGS{Jaffe_2025_WACV,
     author={Jaffe, Lucas and Zakhor, Avideh},
     booktitle={2025 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)}, 
@@ -209,6 +210,7 @@ We would like to acknowledge the authors of the following repos for code which w
     pages={9291-9301},
     doi={10.1109/WACV61041.2025.00900}
 }
+```
 
 ## License
 
