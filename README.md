@@ -6,6 +6,13 @@ Repository for paper, "Swap Path Network for Robust Person Search Pre-training".
 Implements pre-training and fine-tuning of the Swap Path Net (SPNet) for person search.
 Contains code, configs, and instructions to reproduce all results from the paper.
 
+| Dataset   | Model         | mAP  | Top-1 | Checkpoint |
+| --------- | ------------- | ---- | ----- | ---------- |
+| PRW       | SPNet-S       | 55.6 | 89.5  | coming soon |
+| PRW       | SPNet-L       | 61.2 | 90.9  | coming soon |
+| CUHK-SYSU | SPNet-S       | 93.3 | 94.1  | coming soon |
+| CUHK-SYSU | SPNet-L       | 96.4 | 97.0  | coming soon |
+
 ## Setup
 
 ### Installation
