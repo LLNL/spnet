@@ -1,0 +1,7 @@
+check.sh
+export.sh
+clean.sh
+docker_dev.sh
+train.sh
+*.swp
+weights/

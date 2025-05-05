@@ -1,0 +1,72 @@
+# Dataset
+## Train set
+train_dataset:
+    cuhk: {dir: '/datasets/cuhk', subset: 'trainval'}
+## Test set
+test_dataset:
+    cuhk: {dir: '/datasets/cuhk', subset: 'test'}
+retrieval_name_list: ('G100',)
+
+# Re-id
+reid_objective: 'oim'
+oim_cq_size: 5000
+oim_scalar: 30.0
+
+# Detection
+subsample_per_image: 128
+cls_loss_func: 'xe'
+cls_logits: 'norm'
+anchor_focal_alpha: 0.5
+anchor_focal_gamma: 1
+bridge_type: 'combiner'
+
+# Model
+train_mode: 'oc'
+test_mode: 'oc'
+ps_model: 'spnet'
+model: 'convnext'
+backbone_arch: 'convnext_tiny'
+emb_dim: 128
+emb_reid_dim: 128
+emb_align_sep: False
+num_cascade_steps: 0
+
+# GFN
+use_gfn: False
+
+# Optimization
+## Warmup schedule
+warmup_schedule: null
+## Regular schedule
+regular_schedule:
+    epochs: 30
+    optimizer: 'adamw'
+    lr: 0.0001
+    wd: 0.0005
+    scheduler: 'cosine'
+    use_warmup: True
+## Backbone params
+backbone_lr: null
+backbone_wd: null
+## Batch size
+batch_size: 8
+val_batch_size: 1
+## Sampling
+sampler_mode: 'random'
+
+# Test eval mode
+test_eval_mode: 'detect'
+
+# Augmentation
+aug_mode: 'rrc2'
+aug_crop_res: 512
+
+# Logging
+log_dir: '/remote_logging/ft_logging'
+trial_name: 'cuhk.baseline'
+eval_interval: 5
+ckpt_interval: 30
+
+# Finetune
+pretrain_dir: '/remote_logging/pt_logging/coco.qc.cnt'
+pretrain_epoch: 29

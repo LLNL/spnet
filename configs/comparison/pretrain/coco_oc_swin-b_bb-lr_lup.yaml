@@ -1,0 +1,72 @@
+# Dataset
+##
+train_dataset:
+    coco: {dir: '/datasets/coco', subset: 'train'}
+##
+test_dataset:
+    cuhk: {dir: '/datasets/cuhk', subset: 'minival'}
+retrieval_name_list: ('all',)
+
+# Re-id
+reid_objective: 'cq'
+oim_cq_size: 65536
+oim_scalar: 10.0
+reid_gt_only: False
+
+# Detection
+### Subsampling
+subsample_per_image: 256
+
+# Model
+train_mode: 'oc'
+test_mode: 'oc'
+ps_model: 'spnet'
+model: 'solider_swin'
+backbone_arch: 'swin_b'
+backbone_weights: 'solider'
+emb_dim: 128
+emb_reid_dim: 128
+emb_align_sep: False
+freeze_backbone: False
+use_moco: True
+moco_momentum: 0.9999
+num_cascade_steps: 0
+
+# GFN
+use_gfn: False
+
+# Optimization
+## Warmup schedule
+warmup_schedule: null
+## Regular schedule
+regular_schedule:
+    epochs: 30
+    optimizer: 'adamw'
+    lr: 0.0001
+    wd: 0.001
+    scheduler: 'cosine'
+    use_warmup: True
+## Backbone params
+backbone_lr: 0.00001
+backbone_wd: 0
+## Batch size
+batch_size: 8
+val_batch_size: 1
+## Sampling
+match_mode: 'algo1'
+match_conservative: False
+sampler_mode: 'repeat'
+sampler_num_repeat: 2
+
+# Test eval mode: {'classifier', 'search', 'loss', 'detect', 'all'}
+test_eval_mode: 'detect'
+
+# Augmentation
+aug_mode: 'rrc_scale'
+aug_crop_res: 512
+
+# Logging
+log_dir: '/remote_logging/pt_logging'
+trial_name: 'coco.oc.swin-b.lup'
+eval_interval: 1
+ckpt_interval: 5

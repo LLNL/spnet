@@ -1,0 +1,68 @@
+# Dataset
+## Train set
+train_dataset:
+    cuhk: {dir: '/datasets/cuhk', subset: 'trainval'}
+## Test set
+test_dataset:
+    cuhk: {dir: '/datasets/cuhk', subset: 'test'}
+retrieval_name_list: ('G100',)
+
+# Re-id
+reid_objective: 'oim'
+oim_cq_size: 5000
+oim_scalar: 30.0
+
+# Detection
+subsample_per_image: 128
+cls_loss_func: 'xe'
+cls_logits: 'norm'
+anchor_focal_alpha: 0.5
+anchor_focal_gamma: 1
+
+# Model
+train_mode: 'oc'
+test_mode: 'oc'
+ps_model: 'spnet'
+model: 'convnext'
+backbone_arch: 'convnext_base'
+emb_dim: 128
+emb_reid_dim: 2048
+emb_align_sep: True
+num_cascade_steps: 2
+
+# GFN
+use_gfn: False
+
+# Optimization
+## Warmup schedule
+warmup_schedule: null
+## Regular schedule
+regular_schedule:
+    epochs: 30
+    optimizer: 'adamw'
+    lr: 0.0001
+    wd: 0.0005
+    scheduler: 'cosine'
+    use_warmup: True
+## Backbone params
+backbone_lr: null
+backbone_wd: null
+## Batch size
+batch_size: 8
+val_batch_size: 1
+## Sampling
+sampler_mode: 'random'
+
+# Test eval mode
+test_eval_mode: 'detect'
+
+# Augmentation
+aug_mode: 'rrc2'
+aug_crop_res: 1024
+
+# Logging
+log_dir: '/remote_logging/ft_logging'
+trial_name: 'cuhk.large'
+ckpt_load_cascade: True
+ckpt_load_share: True
+ckpt_path: '/remote_logging/ft_logging.save/coco.qc.cnb.r640.bb-lr-lwf.q32-k64.ft-e29:cuhk.cnb.cascade2n.gfn.r1024/logs/checkpoints/coco.qc.cnb.r640.bb-lr-lwf.q32-k64.ft-e29:cuhk.cnb.cascade2n.gfn.r1024_epoch=29_step=42000.ckpt'

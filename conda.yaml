@@ -1,0 +1,26 @@
+name: osr
+
+dependencies:
+    - python=3.10
+    - conda-forge::pytorch=1.13.1 cuda112py310he33e0d6_200
+    - conda-forge::nccl=2.19.4.1 h0800d71_0
+    - conda-forge::cuda-version=11.3 hbc958af_2
+    - cudatoolkit=11.3.1 h2bc3f7f_2
+    - cudnn=8.9.2.26 cuda11_0
+    - pytorch-lightning=2.0.2
+    - libcurl>=8.4.0
+    - metric-learning::pytorch-metric-learning
+    - conda-forge::albumentations
+    - conda-forge::tensorboard
+    - pip
+    - torchvision
+    - pycocotools
+    - matplotlib
+    - pandas
+    - tensorflow
+    - tensorboard
+    - torchmetrics
+    - einops
+    - jupyterlab
+    - loralib
+    - timm

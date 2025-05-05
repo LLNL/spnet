@@ -1,0 +1,322 @@
+# Dataset
+## Train set
+### Name of train dataset: {'prw', 'cuhk'}
+### Path to train dataset directory
+### Name of train partition
+train_dataset:
+    cuhk: {dir: '/datasets/cuhk', subset: 'tinytrainval8'}
+## Test set
+### Name of test dataset: {'prw', 'cuhk'}
+### Path to test dataset directory
+### Name of test partition
+test_dataset: {name: 'cuhk', dir: '/datasets/cuhk', subset: 'tinytrainval8'}
+### List of retrieval partitions to use during eval
+retrieval_name_list: ('all',)
+
+# Meta learning
+use_meta_learning: False
+
+# Classifier Objective
+### Whether to use classifier
+use_classifier_train: False
+use_classifier_test: False
+classifier_objective: 'xe'
+
+# Test eval mode: {'classifier', 'search', 'loss'}
+test_eval_mode: 'search'
+test_eval_aug: 'test'
+
+# Re-ID Objective
+### Loss objective function
+reid_objective: 'oim'
+### OIM LUT update momentum
+oim_momentum: 0.5
+### Inverse temperature parameter
+oim_scalar: 30.0
+### Size of the OIM circular queue
+oim_cq_size: 5000
+### Loss weight
+reid_loss_weight: 1
+### Reset CQ after each epoch
+oim_cq_epoch_reset: False
+### Use only GT embeddings for reid loss
+reid_gt_only: False
+### Use only reid loss during training
+reid_only: False
+
+# Self-supervised learning
+use_ssl: False
+ssl_anno_method: 'iou' # 'iou'
+ssl_num_anno: 10
+ssl_min_width: 8
+ssl_max_width: 128
+ssl_min_ar: 0.333 
+ssl_max_ar: 3.0
+ssl_iou_thresh: 0.1
+ssl_filter_monotone: False
+ssl_filter_duplicate: False
+
+# Detection Objective
+### Norm aware embeddings
+nae: False
+###
+use_posnorm: False
+###
+use_anchor_head: False
+### Anchor loss: Sigmoid focal loss alpha
+anchor_focal_alpha: 0.5
+### Anchor loss: Sigmoid focal loss gamma 
+anchor_focal_gamma: 1
+### ANchor logits: 'norm' or 'batchnorm'
+anchor_logits: 'norm'
+#
+anchor_pos_smoothing: null
+### Classifier loss: Sigmoid focal loss alpha
+class_focal_alpha: null
+### Classifier loss: Sigmoid focal loss gamma 
+class_focal_gamma: null
+### Classifier loss function: 'focal' or 'xe'
+cls_loss_func: 'xe'
+### Classifier logits: 'mlp', 'norm' or 'batchnorm'
+cls_logits: 'norm'
+#
+cls_pos_smoothing: null
+### Subsampling
+subsample_neg_per_pos: 1
+subsample_per_image: 128 # 128
+subsample_per_query: 24 # 16
+
+# Feature Consistency
+### FC Objective
+fc_objective: 'mse'
+
+# Model
+### Function used to combine query and anchor embeddings
+combiner: 'diff'
+### Train mode: {'qc', 'oc', 'qcoc'}
+train_mode: 'oc'
+### Test mode: {'qc', 'oc'}
+test_mode: 'oc'
+### Model architecture
+ps_model: 'spnet'
+### Model backbone architecture
+model: 'convnext'
+### Model backbone architecture subvariant
+backbone_arch: 'convnext_base'
+### Backbone weights: ImageNet1k classifier weights by default (in1k)
+backbone_weights: 'in1k'
+### Featmap to use for RoIAlign
+featmap_name: 'feat_res3'
+featmap_size: 14
+### Use NAE or RCNN head for second stage classification: {'rcnn', 'nae'}
+box_head_mode: 'rcnn'
+### Detection score: which detector stage to use: {'fcs', 'scs'}
+det_score: 'scs'
+### Confidence-weighted similarity: which detector stage to use: {'fcs', 'scs'}
+cws_score: 'scs'
+### Embedding dim for query and scene embeddings
+emb_dim: 128
+### 
+emb_reid_dim: 128
+###
+emb_align_mode: 'conv5' # {'orig', 'iou', 'conv5'}
+###
+emb_align_sep: False
+### Feature dim of FPN output
+fpn_dim: 256
+### Normalization to use at end of embedding heads: {'batchnorm', 'layernorm'}
+emb_norm_type: 'batchnorm'
+### Whether to freeze the whole backbone
+freeze_backbone: False
+###
+freeze_non_norm: False
+### Whether to freeze first layer of model backbone
+freeze_layer1: True
+### Whether to freeze fourth layer of model backbone
+freeze_layer4: False
+### Whether to freeze batchnorm layers in model backbone
+freeze_backbone_batchnorm: True
+### Whether to load pretrained weights
+pretrained: True
+### Model neck architecture: {'orig', 'fpn'}
+neck_type: 'fpn'
+### MOCO
+use_moco: False
+moco_momentum: 0.9999
+moco_copy_teacher: False
+### Cascade
+num_cascade_steps: 0
+### Lora
+use_lora: False
+merge_lora: False
+### CWS
+use_cws: False
+### Search mode for QC model
+search_mode: 'topk'
+### Bridge layer: {'combiner', 'direct'}
+bridge_type: 'combiner'
+
+# Metrics
+## Computing anchor metrics can use significant compute / memory
+## so we disable it by default
+compute_anchor_metrics: False
+
+# GFN
+### Whether to use the GFN
+use_gfn: True
+### GFN obective: {'image', 'separate', 'combined'}
+#### from paper: image=scene-only, separate=base, combined=combined
+gfn_mode: 'combined'
+### GFN query-scene activation function: {'se', 'sum', 'identity'}
+gfn_activation_mode: 'se'
+### Filtering for negative samples during GFN training 
+gfn_filter_neg: True
+### GFN batch vs. prototype features: {'batch', 'oim'}
+#### from paper: batch=batch, oim=proto
+gfn_query_mode: 'oim'
+### Whether to use a lookup table (LUT) for the GFN
+gfn_use_image_lut: True
+### Temperature to use for GFN NTXentLoss
+gfn_train_temp: 0.1
+### Temperature to use for GFN SE activation
+gfn_se_temp: 0.2
+### Number of (positive, negative) samples for GFN LUT sampling
+gfn_num_sample: (1, 1)
+### Target size for scene features: adaptive max pool 2d
+gfn_scene_pool_size: 56
+
+# Optimization
+## Warmup schedule
+warmup_schedule: null
+## Regular schedule
+regular_schedule:
+    epochs: 2
+    optimizer: 'adam'
+    lr: 0.0001
+    wd: 0.0005
+    scheduler: 'cosine'
+    use_warmup: False
+## Backbone params
+backbone_lr: null
+backbone_wd: null
+### Optimizer
+# optimizer: 'adamw'
+### Learning rate
+# lr: 0.0001
+### Weight decay
+# weight_decay: 0.0005
+### Learning rate scheduler
+# scheduler: 'multistep'
+### Factor by which to reduce LR for 'multistep' scheduler
+# lr_gamma: 0.1
+### Steps at which to reduce LR for 'multistep' scheduler
+# lr_steps: (15, 25)
+### First epoch LR warmup
+# use_warmup: True
+### Automatic mixed precision training / eval
+use_amp: True
+### Clip grads to norm 10.0
+clip_grads: True
+### Number of training epochs
+#epochs: 2
+### Number of scenes per training batch
+batch_size: 4
+### Group images into wide vs. tall AR for batches
+aspect_ratio_grouping: False
+### ImageNet stats to use for normalization of images
+image_mean: (0.485, 0.456, 0.406)
+image_std: (0.229, 0.224, 0.225)
+### Match mode
+match_mode: 'other'
+match_conservative: True
+### Sampler
+sampler_mode: 'random'
+
+# Augmentation
+### RFC+RSC cropping strategy: {'rrc', 'rrc2', 'wrs'}
+aug_mode: 'rrc'
+### Side length of square image crops
+aug_crop_res: 512
+### Random Focused Crop (RFC) probability
+aug_rfc_prob: 1.0
+### Random Safe Crop (RSC) probability
+aug_rsc_prob: 1.0
+### Random Safe Crop erosion rate
+aug_rbsc_er: 0.1
+
+# SeqNeXt
+## RPN
+rpn_pre_nms_topn_train: 12000
+rpn_pre_nms_topn_test: 6000
+rpn_post_nms_topn_train: 2000
+rpn_post_nms_topn_test: 300
+rpn_pos_thresh_train: 0.7
+rpn_neg_thresh_train: 0.3
+rpn_batch_size_train: 256
+rpn_pos_frac_train: 0.5
+rpn_nms_thresh: 0.7
+## RoI Head
+roi_head_pos_thresh_train: 0.5
+roi_head_neg_thresh_train: 0.5
+roi_head_batch_size_train: 128
+roi_head_pos_frac_train: 0.5
+roi_head_score_thresh_test: 0.5
+roi_head_nms_thresh_test: 0.4
+roi_head_detections_per_image_test: 300
+## Loss Weights
+lw_rpn_reg: 1
+lw_rpn_cls: 1
+lw_proposal_reg: 10
+lw_proposal_cls: 1
+lw_box_reg: 1
+lw_box_cls: 1
+lw_box_reid: 1
+
+# Logging
+trial_name: 'dummy'
+eval_interval: 1
+eval_start: False
+ckpt_interval: 2
+latest_ckpt_interval: 10000
+log_dir: './logging'
+ckpt_path: null
+ckpt_load_cascade: False
+ckpt_load_share: False
+print_freq: 20
+
+# Finetune
+pretrain_dir: null
+pretrain_epoch: null
+pretrain_train_mode: null
+
+# Run mode
+debug: False
+test_only: False
+
+# Computation
+## torch
+device: 'cuda'
+workers: 4
+## Ray
+num_samples: 1
+num_workers: 1
+num_cpus_per_trial: 4
+num_gpus_per_trial: 1
+resume: False
+
+# Distributed
+distributed: False
+world_size: 1
+
+# Reproducibility
+use_random_seed: True
+random_seed: 0
+
+# Keys which should be parsed as tuples
+tuple_key_list:
+    - gfn_num_sample
+    - optimizer
+    - lr_steps
+    - retrieval_name_list
+    - image_mean
+    - image_std
